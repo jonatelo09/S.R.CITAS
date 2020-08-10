@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-@section('title', 'Médicos')
+@section('title', 'Pacientes')
 
 @section('content')
 <div class="card shadow">
@@ -9,7 +9,7 @@
 	      <h3 class="mb-0">@yield('title')</h3>
 	    </div>
 	    <div class="col text-right">
-	      <a href="{{url('doctors/create')}} " class="btn btn-sm btn-success">Nuevo Médico</a>
+	      <a href="{{url('/patients/create')}} " class="btn btn-sm btn-success">Nuevo Paciente</a>
 	    </div>
 	  </div>
 	</div>
@@ -45,19 +45,19 @@
 	      </tr>
 	    </tfoot>
 	    <tbody>
-	    @foreach($doctors as $doctor)
+	    @foreach($patients as $patient)
 	      <tr>
 	        <th scope="row">
-	          {{ $doctor->name }}
+	          {{ $patient->name }}
 	        </th>
 	        <td>
-	          {{ $doctor->email}}
+	          {{ $patient->email}}
 	        </td>
-	        <td>{{ $doctor->cedula}}</td>
-	        <td>{{ $doctor->phone}}</td>
+	        <td>{{ $patient->cedula}}</td>
+	        <td>{{ $patient->phone}}</td>
 	        <td>
-	          <a href="{{url('/doctors/'.$doctor->id.'/edit')}}" class="btn btn-sm btn-primary">Editar</a>
-	          <form method="POST" action="{{url('/doctors/'.$doctor->id)}}" style="display: inline-block;">
+	          <a href="{{url('/patients/'.$patient->id.'/edit')}}" class="btn btn-sm btn-primary">Editar</a>
+	          <form method="POST" action="{{url('/patients/'.$patient->id)}}" style="display: inline-block;">
 	          	@csrf
 	          	@method('DELETE')
 	          	<button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
@@ -69,9 +69,8 @@
 	    </tbody>
 	  </table>
 	</div>
-
 	<div class="card-footer">
-		{{ $doctors->links()}}
+		{{ $patients->links()}}
 	</div>
 </div>
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-@section('title', 'Nuevo Doctor')
+@section('title', 'Nuevo Paciente')
 
 @section('content')
 <div class="card shadow">
@@ -23,27 +23,27 @@
 	  </div>
 	</div>
 	<div class="card-body">
-		<form method="POST" action="{{url('doctors')}} ">
+		<form method="POST" action="{{url('/patients')}}">
 			@csrf
 			<div class="form-group">
-				<label for="name">Nombre del Médico</label>
-				<input type="text" value="{{old('name')}} " class="form-control" name="name" required>
+				<label for="name">Nombre del Paciente</label>
+				<input type="text" value="{{old('name')}}" class="form-control" name="name" required>
 			</div>
 			<div class="form-group">
-				<label for="email">Email del Médico</label>
-				<input type="text" value="{{old('email')}} " class="form-control" name="email" required>
+				<label for="email">Email del Paciente</label>
+				<input type="text" value="{{old('email')}}" class="form-control" name="email" required>
 			</div>
 			<div class="form-group">
-				<label for="cedula">Cédula del Médico</label>
-				<input type="text" value="{{old('cedula')}} " class="form-control" name="cedula" required>
+				<label for="cedula">Cédula del Paciente</label>
+				<input type="text" value="{{old('cedula')}}" class="form-control" name="cedula" required>
 			</div>
 			<div class="form-group">
-				<label for="address">Dirección del Médico</label>
-				<input type="text" value="{{old('address')}} " class="form-control" name="address" required>
+				<label for="address">Dirección del Paciente</label>
+				<input type="text" value="{{old('address')}}" class="form-control" name="address" required>
 			</div>
 			<div class="form-group">
-				<label for="phone">Télefono del Médico</label>
-				<input type="text" value="{{old('phone')}} " class="form-control" name="phone" required>
+				<label for="phone">Télefono del Paciente</label>
+				<input type="text" value="{{old('phone')}}" class="form-control" name="phone" required>
 			</div>
 			<div class="form-group">
 				<label for="password">Contraseña del Médico</label>
@@ -52,7 +52,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<button type="submit" class="btn btn-md btn-success">Guardar</button>
-					<a href="{{url('doctors')}} " class="btn btn-secondary btn-md">Cancelar</a>
+					<a href="{{url('/patients')}} " class="btn btn-secondary btn-md">Cancelar</a>
 				</div>
 			</div>
 		</form>

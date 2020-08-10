@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-@section('title', 'Nuevo Doctor')
+@section('title', 'Editar Doctor')
 
 @section('content')
 <div class="card shadow">
@@ -23,31 +23,33 @@
 	  </div>
 	</div>
 	<div class="card-body">
-		<form method="POST" action="{{url('doctors')}} ">
+		<form method="POST" action="{{url('doctors/'.$doctor->id)}}">
 			@csrf
+			@method('PUT')
 			<div class="form-group">
 				<label for="name">Nombre del Médico</label>
-				<input type="text" value="{{old('name')}} " class="form-control" name="name" required>
+				<input type="text" value="{{old('name',$doctor->name)}}" class="form-control" name="name" required>
 			</div>
 			<div class="form-group">
 				<label for="email">Email del Médico</label>
-				<input type="text" value="{{old('email')}} " class="form-control" name="email" required>
+				<input type="text" value="{{old('email',$doctor->email)}}" class="form-control" name="email" required>
 			</div>
 			<div class="form-group">
 				<label for="cedula">Cédula del Médico</label>
-				<input type="text" value="{{old('cedula')}} " class="form-control" name="cedula" required>
+				<input type="text" value="{{old('cedula',$doctor->cedula)}}" class="form-control" name="cedula" required>
 			</div>
 			<div class="form-group">
 				<label for="address">Dirección del Médico</label>
-				<input type="text" value="{{old('address')}} " class="form-control" name="address" required>
+				<input type="text" value="{{old('address',$doctor->address)}}" class="form-control" name="address" required>
 			</div>
 			<div class="form-group">
 				<label for="phone">Télefono del Médico</label>
-				<input type="text" value="{{old('phone')}} " class="form-control" name="phone" required>
+				<input type="text" value="{{old('phone',$doctor->phone)}}" class="form-control" name="phone" required>
 			</div>
 			<div class="form-group">
 				<label for="password">Contraseña del Médico</label>
-				<input type="text" value="{{ Str::random(6)}}" class="form-control" name="password" required>
+				<input type="text" value="" class="form-control" name="password">
+				<p class="text-primary">Ingrese un valor sólo si desea modificar la contraseña.</p>
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
