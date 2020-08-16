@@ -13,7 +13,6 @@ class WorkDay extends Model
         'morning_end',
         'afternoon_start',
         'afternoon_end',
-
         'user_id',
     ];
 }

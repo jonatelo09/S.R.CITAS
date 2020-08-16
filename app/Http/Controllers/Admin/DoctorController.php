@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Specialty;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,8 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('doctors.create');
+        $specialties = Specialty::all();
+        return view('doctors.create', compact('specialties'));
     }
 
     /**
@@ -42,6 +44,7 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $rules = [
             'name'    => 'required|min:3',
             'email'   => 'required|email',
@@ -64,13 +67,15 @@ class DoctorController extends Controller
 
         $this->validate($request, $rules, $messages);
 
-        User::create(
+        $user = User::create(
             $request->only('name','email','cedula','address','phone')
             + [
                 'role' => 'doctor',
                 'password' => bcrypt($request->input('password')),
             ]
         );
+
+        $user->specialties()->attach($request->input('specialties'));
 
         $notifications = 'El Médico se ha registrado correctamente.';
 
@@ -94,9 +99,14 @@ class DoctorController extends Controller
      * @param  \App\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $doctor)
+    public function edit($id)
     {
-        return view('doctors.edit', compact('doctor'));
+        $doctor = User::doctors()->findOrFail($id);
+        $specialties = Specialty::all();
+        // dd($specialties);
+        $specialty_ids = $doctor->specialties()->pluck('specialties.id');
+        // dd($specialty_ids);
+        return view('doctors.edit', compact('doctor','specialties','specialty_ids'));
     }
 
     /**
@@ -110,8 +120,8 @@ class DoctorController extends Controller
     {
         $rules = [
             'name'    => 'required|min:3',
-            'email'   => 'required|email|unique:users,email',
-            'cedula'  => 'required|digits:8|unique:users,cedula',
+            'email'   => 'required|email',
+            'cedula'  => 'required|digits:8',
             'address' => 'required',
             'phone'   => 'required',
         ];
@@ -121,10 +131,8 @@ class DoctorController extends Controller
             'name.min' => 'El campo nombre debe contener al menos 3 caracteres',
             'email.required' => 'El campo email es requerido',
             'email.email' => 'El campo email debe ser un correo valido.',
-            'email.unique' => 'El correo ya existe, intente con un correo diferente.',
             'cedula.required' => 'El campo cedula es requerido',
             'cedula.digits' => 'El campo cedula debe contener solo numero con un maximo de 8 digitos',
-            'cedula.unique' => 'El campo INE ya existe, verifique el dato.',
             'address.required' => 'El campo Direccion es requerido',
             'phone.required' => 'El campo Telefono es requerido',
         ];
@@ -144,6 +152,8 @@ class DoctorController extends Controller
 
         $doctors->fill($data);
         $doctors->save(); // UPDATE
+
+        $doctors->specialties()->sync($request->input('specialties'));
 
         $notifications = 'El Médico se ha actualizado correctamente.';
 

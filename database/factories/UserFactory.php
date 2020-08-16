@@ -29,3 +29,11 @@ $factory->define(User::class, function (Faker $faker) {
         'role' => $faker->randomElement(['admin','doctor','patient']),
     ];
 });
+
+$factory->state(App\User::class, 'patient', [
+    'role' => 'patient'
+]);
+
+$factory->state(App\User::class, 'doctor', [
+    'role' => 'doctor'
+]);
