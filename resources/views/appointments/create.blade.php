@@ -5,13 +5,13 @@
 <div class="card shadow">
 	<div class="card-header border-0">
 	  <div class="col align-items-center">
-	  	@if ($errors->any())
+	  	@if ( $errors->any() )
 	      	<div class="alert alert-danger alert-dismissible fade show" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			        <span aria-hidden="true">&times;</span>
 			    </button>
 			    <ul>
-			    	@foreach($errors->all() as $error)
+			    	@foreach( $errors->all() as $error )
 			    		<li><span class="alert-text"><strong>Error!</strong> {{$error}} </span></li>
 			    	@endforeach
 			    </ul>
@@ -27,7 +27,7 @@
 			@csrf
 			<div class="form-group">
 				<label for="description">Descripción</label>
-				<input type="text" name="description" value="{{old('description')}} " id="description" class="form-control" required>
+				<input type="text" name="description" value="{{old('description')}} " id="description" class="form-control" placeholder="Escribe una breve descripcion de tu consulta." required>
 			</div>
 			<div class="form-row">
 			    <div class="form-group col-md-6">
@@ -64,9 +64,24 @@
 			<div class="form-group">
 				<label for="address">Hora de Cita</label>
 				<div id="hours">
-					<div class="alert alert-info" role="alert">
-						Selecciona una fecha y un médico, para ver sus horas disponibles.
-					</div>
+					@if($intervals)
+						@foreach($intervals['morning'] as $key => $interval)
+							<div class="custom-control custom-radio mb-3">
+							  <input type="radio" id="intervalMorning{{ $key}} " name="scheduled_time" class="custom-control-input" value="{{ $interval['start']}} " required>
+							  <label class="custom-control-label" for="intervalMorninf{{ $key}}">{{ $interval['start']}} - {{ $interval['end']}}</label>
+							</div>
+						@endforeach
+						@foreach($intervals['afternoon'] as $key => $interval)
+						<div class="custom-control custom-radio mb-3">
+							  <input type="radio" id="intervalMorning{{ $key}} " name="scheduled_time" class="custom-control-input" value="{{ $interval['start'] }} " required>
+							  <label class="custom-control-label" for="intervalMorning{{ $key}}">{{ $interval['start'] }} - {{ $interval['end'] }}</label>
+							</div>
+						@endforeach
+					@else
+						<div class="alert alert-info" role="alert">
+							Selecciona una fecha y un médico, para ver sus horas disponibles.
+						</div>
+					@endif
 				</div>
 			</div>
 			<div class="form-group">
@@ -102,7 +117,7 @@
 @endsection
 
 @section('script')
-	<script src="{{asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
-	<script src="{{asset('/js/appointment/create.js')}} "></script>
+	<script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}} "></script>
+	<script src="{{ asset('/js/appointment/create.js')}} "></script>
 
 @endsection
