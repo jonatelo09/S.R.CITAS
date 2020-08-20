@@ -20,17 +20,38 @@ class AppointmentController extends Controller
     public function index()
     {
         // mostrar citas por roles
-        $pedingAppointments = Appointment::where('status', 'Reservada')
-            ->where('patient_id', auth()->id())
-            ->paginate(10);
-        $confirmedAppointments = Appointment::where('status','Confirmada')
-            ->where('patient_id', auth()->id())
-            ->paginate(10);
-        $oldAppointments = Appointment::whereIn('status',['Atendida','Cancelada'])
-            ->where('patient_id', auth()->id())
-            ->paginate(10);
+        $role = auth()->user()->role;
+        if($role == 'admin'){
+            $pedingAppointments = Appointment::where('status', 'Reservada')
+                ->paginate(10);
+            $confirmedAppointments = Appointment::where('status','Confirmada')
+                ->paginate(10);
+            $oldAppointments = Appointment::whereIn('status',['Atendida','Cancelada'])
+                ->paginate(10);
 
-        return view('appointments.index', compact('pedingAppointments','confirmedAppointments','oldAppointments'));
+        } elseif($role == 'doctor') {
+            $pedingAppointments = Appointment::where('status', 'Reservada')
+                ->where('doctor_id', auth()->id())
+                ->paginate(10);
+            $confirmedAppointments = Appointment::where('status','Confirmada')
+                ->where('doctor_id', auth()->id())
+                ->paginate(10);
+            $oldAppointments = Appointment::whereIn('status',['Atendida','Cancelada'])
+                ->where('doctor_id', auth()->id())
+                ->paginate(10);
+        } elseif ($role == 'patient') {
+            $pedingAppointments = Appointment::where('status', 'Reservada')
+                ->where('patient_id', auth()->id())
+                ->paginate(10);
+            $confirmedAppointments = Appointment::where('status','Confirmada')
+                ->where('patient_id', auth()->id())
+                ->paginate(10);
+            $oldAppointments = Appointment::whereIn('status',['Atendida','Cancelada'])
+                ->where('patient_id', auth()->id())
+                ->paginate(10);
+        }
+
+        return view('appointments.index', compact('pedingAppointments','confirmedAppointments','oldAppointments', 'role'));
     }
 
     /**
@@ -134,7 +155,8 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        //
+        $role = auth()->user()->role;
+        return view('appointments.show', compact('appointment','role'));
     }
 
     /**
@@ -185,6 +207,15 @@ class AppointmentController extends Controller
 
         $notifications = 'La cita se ha cancelado correctamente.';
 
+        return redirect('appointments')->with(compact('notifications'));
+    }
+
+    public function confirm(Request $request, Appointment $appointment)
+    {
+        $appointments->status = 'Confirmada';
+        $appointments->save();
+
+        $notifications = 'La cita se ha Confirmado   correctamente.';
         return redirect('appointments')->with(compact('notifications'));
     }
 
