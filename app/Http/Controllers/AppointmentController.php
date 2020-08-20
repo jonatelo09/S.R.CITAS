@@ -19,6 +19,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        // mostrar citas por roles
         $pedingAppointments = Appointment::where('status', 'Reservada')
             ->where('patient_id', auth()->id())
             ->paginate(10);
