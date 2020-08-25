@@ -26,7 +26,7 @@
           {{ $appointment->specialty->name}}
         </th>
         <td>{{ $appointment->scheduled_date}}</td>
-        <td>{{ $appointment->schedule_time_12}}</td>
+        <td>{{ $appointment->scheduled_time_12}}</td>
         <td>{{ $appointment->status}}</td>
         <td>
           <a href="{{url('appointments/'.$appointment->id)}}" class="btn btn-primary btn-sm">Ver</a>

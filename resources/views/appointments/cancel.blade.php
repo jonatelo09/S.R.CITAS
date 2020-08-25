@@ -20,7 +20,29 @@
 		    </button>
 		</div>
 		@endif
-		<p>Estas a punto de cancelar tu cita con el médico <span class="font-weight-bold">{{$appointment->doctor->name}}</span> (de la especialidad <span class="font-weight-bold">{{$appointment->specialty->name}}</span> ), para el dia <span class="font-weight-bold">{{$appointment->scheduled_date}}</span>:</p>
+		@if($role == 'patient')
+		<p>
+			Estas a punto de cancelar tu cita con el médico 
+			<span class="font-weight-bold">{{$appointment->doctor->name}}</span> 
+			(de la especialidad <span class="font-weight-bold">{{$appointment->specialty->name}}</span> ), 
+			para el dia <span class="font-weight-bold">{{$appointment->scheduled_date}}</span>:
+		</p>
+		@elseif($role == 'doctor')
+		<p>
+			Estas a punto de cancelar tu cita reservada con el paciente 
+			<span class="font-weight-bold">{{$appointment->patient->name}}</span> 
+			(de la especialidad <span class="font-weight-bold">{{$appointment->specialty->name}}</span> ), 
+			para el dia <span class="font-weight-bold">{{$appointment->scheduled_date}}</span>,
+			para la hora <span class="font-weight-bold">{{$appointment->scheduled_time_12}}</span>:
+		</p>
+		@else
+		<p>
+			Estas a punto de cancelar tu cita con el médico 
+			<span class="font-weight-bold">{{$appointment->doctor->name}}</span> 
+			(de la especialidad <span class="font-weight-bold">{{$appointment->specialty->name}}</span> ), 
+			para el dia <span class="font-weight-bold">{{$appointment->scheduled_date}}</span>:
+		</p>
+		@endif
 		<form method="post" action="{{url('/appointments/'.$appointment->id.'/cancel')}} ">
 			@csrf
 			<div class="form-group">

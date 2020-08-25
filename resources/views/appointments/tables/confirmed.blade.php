@@ -32,7 +32,7 @@
       </tr>
     </tfoot>
     <tbody>
-    @foreach($pedingAppointments as $appointment)
+    @foreach($confirmedAppointments as $appointment)
       <tr>
         <th scope="row">
           {{ $appointment->description }}
@@ -46,19 +46,16 @@
           <td>{{ $appointment->patient->name}}</td>
         @endif
         <td>{{ $appointment->scheduled_date}}</td>
-        <td>{{ $appointment->schedule_time_12}}</td>
+        <td>{{ $appointment->scheduled_time_12}}</td>
         <td>{{ $appointment->type}}</td>
         <td>
-          @if($role == 'doctor')
-          <form method="POST" action="{{url('/appointments/'.$appointment->id.'/confirm')}}" style="display: inline-block;">
-            @csrf
-            <button type="submit" data-toggle="tooltip" class="btn btn-sm btn-success" title="Confirmar Cita">Confirmar</button>
-          </form>
+          @if($role = 'admin')
+          <a class="btn btn-sm btn-primary" title="Ver cita" href="{{ url('/appointments/'.$appointment->id)}}">Ver
+          </a>
           @endif
-          <form method="POST" action="{{url('/appointments/'.$appointment->id.'/cancel')}}" style="display: inline-block;">
-          	@csrf
-          	<button type="submit" data-toggle="tooltip" class="btn btn-sm btn-danger" title="Cancelar Cita">Cancelar</button>
-          </form>
+          <a class="btn btn-danger btn-sm" href="{{url('/appointments/'.$appointment->id.'/cancel')}}" >
+            Cancelar
+          </a>
           
         </td>
       </tr>
@@ -66,6 +63,7 @@
     </tbody>
   </table>
 </div>
+
 <div class="card-footer">
-  {{ $oldAppointments->links()}}
+  {{ $confirmedAppointments->links()}}
 </div>

@@ -18,11 +18,13 @@
 			<li>
 				<strong>Hora: </strong> {{ $appointment->scheduled_time}}
 			</li>
-			@if($role == 'patient')
+			@if($role == 'patient' || $role = 'admin')
 			<li>
 				<strong>Medico: </strong> {{ $appointment->doctor->name}}
 			</li>
-			@elseif($role == 'doctor')
+			@endif
+
+			@if($role == 'doctor' || $role = 'admin')
 			<li>
 				<strong>Paciente: </strong> {{ $appointment->patient->name}}
 			</li>
@@ -43,31 +45,33 @@
 			</li>
 			
 		</ul>
-		<div class="alert alert-warning">
-			<p>Acerca de la cancelación: </p>
-			<ul>
-				@if($appointment->cancellation)
-					<li>
-						<strong>Motivo de la cancelación: </strong>
-						{{ $appointment->cancellation->justification}}
-					</li>
-					<li>
-						<strong>Fecha de cancelación: </strong>
-						{{ $appointment->cancellation->created_at}}
-					</li>
-					<li>
-						<strong>Quién canceló la cita: </strong>
-						@if(auth()->id() == $appointment->cancellation->cancelled_by_id )
-							Tú
-						@else
-							{{ $appointment->cancellation->cancelled_by->name}}
-						@endif
-					</li>
-				@else
-					<li>Esta cita fue cancelada antes de su confirmación</li>
-				@endif
-			</ul>
-		</div>
+		@if($appointment->status == 'Cancelada')
+			<div class="alert alert-warning">
+				<p>Acerca de la cancelación: </p>
+				<ul>
+					@if($appointment->cancellation)
+						<li>
+							<strong>Motivo de la cancelación: </strong>
+							{{ $appointment->cancellation->justification}}
+						</li>
+						<li>
+							<strong>Fecha de cancelación: </strong>
+							{{ $appointment->cancellation->created_at}}
+						</li>
+						<li>
+							<strong>Quién canceló la cita: </strong>
+							@if(auth()->id() == $appointment->cancellation->cancelled_by_id )
+								Tú
+							@else
+								{{ $appointment->cancellation->cancelled_by->name}}
+							@endif
+						</li>
+					@else
+						<li>Esta cita fue cancelada antes de su confirmación</li>
+					@endif
+				</ul>
+			</div>
+		@endif
 		<a href="{{url('appointments')}}" class="btn btn-default">
 			<i class="ni ni-bold-left"></i> Volver</a>
 	</div>

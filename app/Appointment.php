@@ -48,7 +48,7 @@ class Appointment extends Model
 
     // accessor
     // $appointmet->scheduled_time_12
-    public function getScheduleTime12Attribute()
+    public function getScheduledTime12Attribute()
     {
     	return (new Carbon($this->scheduled_time))->format('g:i A');
     }

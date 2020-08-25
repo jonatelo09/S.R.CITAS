@@ -179,7 +179,9 @@ class AppointmentController extends Controller
     public function showCancelFrom(Appointment $appointment)
     {
         if ($appointment->status == 'Confirmada') {
-            return view('appointments.cancel', compact('appointment'));
+            // dd($appointment);
+            $role = auth()->user()->role;
+            return view('appointments.cancel', compact('appointment','role'));
         }
 
         return redirect('appointments');
@@ -210,10 +212,10 @@ class AppointmentController extends Controller
         return redirect('appointments')->with(compact('notifications'));
     }
 
-    public function confirm(Request $request, Appointment $appointment)
+    public function confirm(Appointment $appointment)
     {
-        $appointments->status = 'Confirmada';
-        $appointments->save();
+        $appointment->status = 'Confirmada';
+        $appointment->save();
 
         $notifications = 'La cita se ha Confirmado   correctamente.';
         return redirect('appointments')->with(compact('notifications'));

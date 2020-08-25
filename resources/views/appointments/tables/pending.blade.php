@@ -32,7 +32,7 @@
       </tr>
     </tfoot>
     <tbody>
-    @foreach($confirmedAppointments as $appointment)
+    @foreach($pedingAppointments as $appointment)
       <tr>
         <th scope="row">
           {{ $appointment->description }}
@@ -46,12 +46,24 @@
           <td>{{ $appointment->patient->name}}</td>
         @endif
         <td>{{ $appointment->scheduled_date}}</td>
-        <td>{{ $appointment->schedule_time_12}}</td>
+        <td>{{ $appointment->scheduled_time_12}}</td>
         <td>{{ $appointment->type}}</td>
         <td>
-          <a class="btn btn-danger btn-sm" href="{{url('/appointments/'.$appointment->id.'/cancel')}}" >
-            Cancelar
+          
+          @if($role == 'doctor' || $role = 'admin')
+          <form method="POST" action="{{url('/appointments/'.$appointment->id.'/confirm')}}" style="display: inline-block;">
+            @csrf
+            <button type="submit" data-toggle="tooltip" class="btn btn-sm btn-success" title="Confirmar Cita">Confirmar</button>
+          </form>
+          @endif
+          @if($role = 'admin')
+          <a class="btn btn-sm btn-primary" title="Ver cita" href="{{ url('/appointments/'.$appointment->id)}}">Ver
           </a>
+          @endif
+          <form method="POST" action="{{url('/appointments/'.$appointment->id.'/cancel')}}" style="display: inline-block;">
+          	@csrf
+          	<button type="submit" data-toggle="tooltip" class="btn btn-sm btn-danger" title="Cancelar Cita">Cancelar</button>
+          </form>
           
         </td>
       </tr>
@@ -59,7 +71,6 @@
     </tbody>
   </table>
 </div>
-
 <div class="card-footer">
-  {{ $confirmedAppointments->links()}}
+  {{ $oldAppointments->links()}}
 </div>

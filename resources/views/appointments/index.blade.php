@@ -39,13 +39,13 @@
 	</div>
 	<div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="confirmed-appointments" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-        	@include('appointments.confirmed-appointmets')
+        	@include('appointments.tables.confirmed')
         </div>
         <div class="tab-pane fade" id="pending-appointments" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-            @include('appointments.peding-appointmets')
+            @include('appointments.tables.pending')
         </div>
         <div class="tab-pane fade" id="old-appointments" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-            @include('appointments.old-appointmets')
+            @include('appointments.tables.old')
         </div>
     </div>
 </div>
