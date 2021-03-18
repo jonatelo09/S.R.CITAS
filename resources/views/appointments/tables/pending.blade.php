@@ -50,20 +50,24 @@
         <td>{{ $appointment->type}}</td>
         <td>
           
-          @if($role == 'doctor' || $role = 'admin')
+          @if($role == 'doctor' || $role == 'admin')
           <form method="POST" action="{{url('/appointments/'.$appointment->id.'/confirm')}}" style="display: inline-block;">
             @csrf
             <button type="submit" data-toggle="tooltip" class="btn btn-sm btn-success" title="Confirmar Cita">Confirmar</button>
           </form>
           @endif
-          @if($role = 'admin')
+          @if($role == 'admin')
           <a class="btn btn-sm btn-primary" title="Ver cita" href="{{ url('/appointments/'.$appointment->id)}}">Ver
           </a>
-          @endif
+          <a class="btn btn-sm btn-danger" title="Cancelar cita" href="{{url('/appointments/'.$appointment->id.'/showCancelFrom')}}">Cancelar
+          </a>
+          @else
           <form method="POST" action="{{url('/appointments/'.$appointment->id.'/cancel')}}" style="display: inline-block;">
-          	@csrf
-          	<button type="submit" data-toggle="tooltip" class="btn btn-sm btn-danger" title="Cancelar Cita">Cancelar</button>
+            @csrf
+            <button type="submit" data-toggle="tooltip" class="btn btn-sm btn-danger" title="Cancelar Cita">Cancelar</button>
           </form>
+          @endif
+          
           
         </td>
       </tr>

@@ -1,4 +1,4 @@
-}<!doctype html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -28,7 +28,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
+      <a class="navbar-brand pt-0" href="{{ url('/') }}">
         <img src="{{asset('img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->

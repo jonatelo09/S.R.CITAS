@@ -26,12 +26,12 @@
 <!-- Navigation -->
 <ul class="navbar-nav mb-md-3">
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{ url('/charts/appointments/line') }} ">
       <i class="ni ni-chart-bar-32 text-orange"></i> Frecuencias de Citas
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{ url('/charts/doctors/column')}} ">
       <i class="ni ni-spaceship text-red"></i> Médicos más Activos
     </a>
   </li>

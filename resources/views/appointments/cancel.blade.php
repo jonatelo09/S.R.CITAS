@@ -37,10 +37,12 @@
 		</p>
 		@else
 		<p>
-			Estas a punto de cancelar tu cita con el médico 
-			<span class="font-weight-bold">{{$appointment->doctor->name}}</span> 
+			Estas a punto de cancelar la cita reservada por 
+			el paciente <span class="font-weight-bold">{{$appointment->patient->name}}</span>
+			para ser atendido por el médico <span class="font-weight-bold">{{$appointment->doctor->name}}</span> 
 			(de la especialidad <span class="font-weight-bold">{{$appointment->specialty->name}}</span> ), 
-			para el dia <span class="font-weight-bold">{{$appointment->scheduled_date}}</span>:
+			el dia <span class="font-weight-bold">{{$appointment->scheduled_date}}</span>
+			para la hora <span class="font-weight-bold">{{$appointment->scheduled_time_12}}</span>::
 		</p>
 		@endif
 		<form method="post" action="{{url('/appointments/'.$appointment->id.'/cancel')}} ">
