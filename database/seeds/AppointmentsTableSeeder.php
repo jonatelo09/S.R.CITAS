@@ -2,6 +2,7 @@
 
 use App\Appointment;
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 
 class AppointmentsTableSeeder extends Seeder
 {
