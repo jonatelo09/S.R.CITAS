@@ -52,4 +52,26 @@ class User extends Authenticatable
     {
         return $query->where('role','patient');
     }
+
+    // $user->asPatientAppointments  -> requestedAppointment
+    // $user->asDoctorAppointments   -> attendedAppointment
+    public function asDoctorAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
+    public function asPatientAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
+    }
+
+    public function attendedAppointment()
+    {
+        return $this->asDoctorAppointments()->where('status','Atendida');
+    }
+
+    public function cancelledAppointment()
+    {
+        return $this->asDoctorAppointments()->where('status','Cancelada');
+    }
 }

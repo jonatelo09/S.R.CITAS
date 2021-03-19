@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Appointment;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\User;
 use DB;
+use Illuminate\Http\Request;
 
 class ChartController extends Controller
 {
@@ -34,5 +35,30 @@ class ChartController extends Controller
     public function doctors()
     {
     	return view('charts.doctors');
+    }
+
+    public function doctorsJson()
+    {
+    	$doctors = User::doctors()
+    		->select('name')
+    		->withCount(['attendedAppointment', 'cancelledAppointment'])
+    		->orderBy('attended_appointment_count', 'desc')
+    		->take(5)
+    		->get();
+    	
+
+    	$data = [];
+    	$data['categories'] = $doctors->pluck('name');
+    	
+    	$series = [];
+    	$series1['name'] = 'Citas Atendidas';
+    	$series1['data'] = $doctors->pluck('attended_appointment_count'); //Atendidas
+    	$series2['name'] = 'Citas Canceladas';
+    	$series2['data'] = $doctors->pluck('cancelled_appointment_count'); //Canceladas
+    	$series[] = $series1;
+    	$series[] = $series2;
+    	$data['series'] = $series;
+
+    	return $data; // {categories: [ 'A', 'B' ], series: [ 1, 2 ]}
     }
 }
