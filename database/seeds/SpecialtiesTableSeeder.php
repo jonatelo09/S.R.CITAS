@@ -3,6 +3,7 @@
 use App\Specialty;
 use App\User;
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 
 class SpecialtiesTableSeeder extends Seeder
 {
