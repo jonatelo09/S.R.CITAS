@@ -51,6 +51,6 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        factory(User::class, 50)->state('patient')->create();
+        //factory(User::class, 50)->state('patient')->create();
     }
 }
