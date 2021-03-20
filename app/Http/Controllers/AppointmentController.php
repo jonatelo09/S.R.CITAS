@@ -51,6 +51,8 @@ class AppointmentController extends Controller
                 ->paginate(10);
         }
 
+        //dd($oldAppointments);
+
         return view('appointments.index', compact('pedingAppointments','confirmedAppointments','oldAppointments', 'role'));
     }
 

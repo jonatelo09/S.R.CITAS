@@ -48,7 +48,7 @@
 	    @foreach($doctors as $doctor)
 	      <tr>
 	        <th scope="row">
-	          {{ $doctor->name }}
+	          {{ $doctor->username }}
 	        </th>
 	        <td>
 	          {{ $doctor->email}}

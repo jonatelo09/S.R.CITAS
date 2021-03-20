@@ -43,7 +43,7 @@
 			    	<label for="doctor">Médicos Disponibles</label>
 					<select class="form-control" id="doctor" name="doctor_id">
 						@foreach($doctors as $doctor)
-							<option value="{{$doctor->id}}" @if(old('doctor_id') == $doctor->id) selected @endif>{{$doctor->name}}</option>
+							<option value="{{$doctor->id}}" @if(old('doctor_id') == $doctor->id) selected @endif>{{$doctor->username}}</option>
 						@endforeach
 					</select>
 			    </div>

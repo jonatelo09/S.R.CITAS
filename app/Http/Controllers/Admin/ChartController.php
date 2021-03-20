@@ -53,7 +53,7 @@ class ChartController extends Controller
     	$start = $request->input('start');
     	$end = $request->input('end');
     	$doctors = User::doctors()
-    		->select('name')
+    		->select('username')
     		->withCount([
     			'attendedAppointment' => function ($query) use ($start,$end){
     				$query->whereBetween('scheduled_date',[$start, $end]);
@@ -68,7 +68,7 @@ class ChartController extends Controller
     	
 
     	$data = [];
-    	$data['categories'] = $doctors->pluck('name');
+    	$data['categories'] = $doctors->pluck('username');
     	
     	$series = [];
     	$series1['name'] = 'Citas Atendidas';

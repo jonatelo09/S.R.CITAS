@@ -20,13 +20,13 @@
 			</li>
 			@if($role == 'patient' || $role = 'admin')
 			<li>
-				<strong>Medico: </strong> {{ $appointment->doctor->name}}
+				<strong>Medico: </strong> {{ $appointment->doctor->username}}
 			</li>
 			@endif
 
 			@if($role == 'doctor' || $role = 'admin')
 			<li>
-				<strong>Paciente: </strong> {{ $appointment->patient->name}}
+				<strong>Paciente: </strong> {{ $appointment->patient->username}}
 			</li>
 			@endif
 			<li>

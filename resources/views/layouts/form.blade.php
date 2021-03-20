@@ -63,13 +63,13 @@
 	      </div>
 	    </nav>
 	    <!-- Header -->
-	    <div class="header bg-gradient-primary py-4 py-lg-6">
+	    <div class="header bg-gradient-primary py-7 py-lg-8">
 	      <div class="container">
 	        <div class="header-body text-center mb-5">
 	          <div class="row justify-content-center">
 	            <div class="col-lg-5 col-md-6">
 	              <h1 class="text-white">@yield('title') </h1>
-	              <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+	              <p class="text-lead text-light">Descrubre el mejor sistema de reserva de citas médicas, encuentra todo en un solo lugar!</p>
 	            </div>
 	          </div>
 	        </div>

@@ -43,7 +43,7 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name'    => 'required|min:3',
+            'username'    => 'required|min:3',
             'email'   => 'required|email|unique:users,email',
             'cedula'  => 'required|digits:8|unique:users,cedula',
             'address' => 'required',
@@ -51,8 +51,8 @@ class PatientController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'El campo nombre es requerido',
-            'name.min' => 'El campo nombre debe contener al menos 3 caracteres',
+            'username.required' => 'El campo nombre es requerido',
+            'username.min' => 'El campo nombre debe contener al menos 3 caracteres',
             'email.required' => 'El campo email es requerido',
             'email.email' => 'El campo email debe ser un correo valido.',
             'email.unique' => 'El correo ya existe, intente con un correo diferente.',
@@ -67,7 +67,7 @@ class PatientController extends Controller
         $this->validate($request, $rules, $messages);
 
         User::create(
-            $request->only('name','email','cedula','address','phone')
+            $request->only('username','email','cedula','address','phone')
             + [
                 'role' => 'patient',
                 'password' => bcrypt($request->input('password')),
@@ -111,7 +111,7 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name'    => 'required|min:3',
+            'username'    => 'required|min:3',
             'email'   => 'required|email',
             'cedula'  => 'required|digits:8',
             'address' => 'required',
@@ -119,8 +119,8 @@ class PatientController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'El campo nombre es requerido',
-            'name.min' => 'El campo nombre debe contener al menos 3 caracteres',
+            'username.required' => 'El campo nombre es requerido',
+            'username.min' => 'El campo nombre debe contener al menos 3 caracteres',
             'email.required' => 'El campo email es requerido',
             'email.email' => 'El campo email debe ser un correo valido.',
             'cedula.required' => 'El campo cedula es requerido',
@@ -134,7 +134,7 @@ class PatientController extends Controller
 
         $doctors = User::patients()->findOrFail($id);
 
-        $data = $request->only('name','email','cedula','address','phone');
+        $data = $request->only('username','email','cedula','address','phone');
 
         $password = $request->input('password');
 
@@ -158,7 +158,7 @@ class PatientController extends Controller
      */
     public function destroy(User $patient)
     {
-        $namePatient = $patient->name;
+        $namePatient = $patient->username;
         $patient->delete();
 
         $notifications = "El paciente $namePatient se ha eliminado correctamente";
