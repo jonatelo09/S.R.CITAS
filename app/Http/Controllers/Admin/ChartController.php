@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Appointment;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,12 @@ class ChartController extends Controller
 	// created_at -> datatime()
     public function appointments()
     {
+    	/**
+    	* Si existira un trafico mayor en cuestion de citas es recomendable realizar una tabla donde 
+    	* podamos realizar operaciones de select, que ya tenga una tabla con las citas contadas
+    	* por mes y solo realizar un select from de dicha tabla
+    	* OPTIMIZAR LA CONSULTA
+    	*/
 		$monthlyCounts = Appointment::select(
 			DB::raw('MONTH(created_at) as month'),
 			DB::raw('COUNT(1) as count')
@@ -34,16 +41,29 @@ class ChartController extends Controller
 
     public function doctors()
     {
-    	return view('charts.doctors');
+    	$now = Carbon::now();
+    	$end = $now->format('Y-m-d');
+    	$start = $now->subYear()->format('Y-m-d');
+
+    	return view('charts.doctors', compact('start','end'));
     }
 
-    public function doctorsJson()
+    public function doctorsJson(Request $request)
     {
+    	$start = $request->input('start');
+    	$end = $request->input('end');
     	$doctors = User::doctors()
     		->select('name')
-    		->withCount(['attendedAppointment', 'cancelledAppointment'])
+    		->withCount([
+    			'attendedAppointment' => function ($query) use ($start,$end){
+    				$query->whereBetween('scheduled_date',[$start, $end]);
+    			}, 
+    			'cancelledAppointment' => function ($query) use ($start,$end){
+    				$query->whereBetween('scheduled_date',[$start, $end]);
+    			},
+    		])
     		->orderBy('attended_appointment_count', 'desc')
-    		->take(5)
+    		->take(10)
     		->get();
     	
 

@@ -2,7 +2,6 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
-use Faker\Factory;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,41 +15,62 @@ class UsersTableSeeder extends Seeder
         
 
         User::create([
-			'name' => 'Jonatan',
+			'username' => 'Jonatan96',
+            'firstname' => 'Jonatan',
+            'lastname' => 'Arevalo',
 			'email' => 'kuroko.arevalo@gmail.com',
 			'cedula' => '14271000',
 			'password' => bcrypt('Jonatelo_568923'),
 			'address' => 'Cancun, Quintan Roo, México.',
 			'phone' => '9983456795',
+            'birthday' => '1996-04-09',
+            'city' => 'Cancun',
+            'state' => 'Quintana Roo',
+            'country' => 'México',
+            'postal_code' => '77560',
 			'role' => 'admin',
             'remember_token' => Str::random(10),
             'email_verified_at' => now(),
 		]);
 
         User::create([
-            'name' => 'Paciente 1',
+            'username' => 'Paciente1',
+            'firstname' => 'Juan',
+            'lastname' => 'Perez',
             'email' => 'paciente1@gmail.com',
             'cedula' => '14271001',
             'password' => bcrypt('Jonatelo_568923'),
             'address' => 'Cancun, Quintan Roo, México.',
             'phone' => '9983456795',
+            'birthday' => '1996-04-09',
+            'city' => 'Cancun',
+            'state' => 'Quintana Roo',
+            'country' => 'México',
+            'postal_code' => '77560',
             'role' => 'patient',
             'remember_token' => Str::random(10),
             'email_verified_at' => now(),
         ]);
 
         User::create([
-            'name' => 'Medico 1',
+            'username' => 'Medico1',
+            'firstname' => 'Jorge',
+            'lastname' => 'Lopez',
             'email' => 'medico1@gmail.com',
             'cedula' => '14271002',
             'password' => bcrypt('Jonatelo_568923'),
             'address' => 'Cancun, Quintan Roo, México.',
             'phone' => '9983456795',
+            'birthday' => '1996-04-09',
+            'city' => 'Cancun',
+            'state' => 'Quintana Roo',
+            'country' => 'México',
+            'postal_code' => '77560',
             'role' => 'doctor',
             'remember_token' => Str::random(10),
             'email_verified_at' => now(),
         ]);
 
-        //factory(User::class, 50)->state('patient')->create();
+        factory(User::class, 50)->state('patient')->create();
     }
 }

@@ -218,9 +218,9 @@
         </div>
       </div>
     </div>
+    @yield('header-profile')
     <!-- Page content -->
     <div class="container-fluid mt--7">
-      
       @yield('content')
       @include('includes.panel.footer')
     </div>

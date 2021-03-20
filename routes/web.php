@@ -9,6 +9,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('profile', 'HomeController@profile')->name('profile');
 
 Route::middleware(['auth','admin'])->namespace('Admin')->group( function() {
 	// Specialty

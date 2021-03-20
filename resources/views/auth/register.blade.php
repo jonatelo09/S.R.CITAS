@@ -38,7 +38,7 @@
 	            <div class="input-group-prepend">
 	              <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
 	            </div>
-	            <input id="name" type="text" placeholder="Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+	            <input id="username" type="text" placeholder="Username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 	          </div>
 	        </div>
 	        <div class="form-group">
@@ -47,6 +47,14 @@
 	              <span class="input-group-text"><i class="ni ni-email-83"></i></span>
 	            </div>
 	            <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <div class="input-group input-group-alternative mb-3">
+	            <div class="input-group-prepend">
+	              <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
+	            </div>
+	            <input id="phone" type="tel" placeholder="Telefono" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
 	          </div>
 	        </div>
 	        <div class="form-group">
