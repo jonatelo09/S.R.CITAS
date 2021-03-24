@@ -40,7 +40,7 @@
       </div>
       <div class="text-center">
         <h3>
-          {{Auth::user()->firstname}}<span class="font-weight-light">,{{ $edad }} </span>
+          {{Auth::user()->firstname}}<span class="font-weight-light">, </span>
         </h3>
 
         <div class="h5 font-weight-300">

@@ -32,17 +32,7 @@ class HomeController extends Controller
 
     public function profile()
     {
-        $nacimiento = auth()->user()->birthday;
 
-        $nac_parse = Carbon::parse($nacimiento);
-
-        //dd($nac_parse);
-        $actual = Carbon::now();
-        //dd($actual);
-
-        $edad =  $actual->diffForHumans($nac_parse, $actual);
-        dd($edad);
-
-        return view('profile', compact('edad'));
+        return view('profile');
     }
 }
